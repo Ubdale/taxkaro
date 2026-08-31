@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import {
+  ArrowRight,
+  BookOpen,
+  FileText,
+  ShieldCheck,
+  Sparkles,
+  Zap,
+} from "lucide-react";
 import Calculator from "@/components/Calculator";
 import Reveal from "@/components/ui/Reveal";
 import { faqSchema, jsonLd, webApplicationSchema } from "@/lib/schema";
@@ -72,7 +80,7 @@ export default function HomePage() {
       <section className="mx-auto max-w-6xl px-6 pb-10 pt-12 sm:pt-16">
         <Reveal className="max-w-3xl">
           <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
-            <span className="h-1.5 w-1.5 rounded-full bg-gold-500" />
+            <Sparkles className="size-3.5 text-gold-600" aria-hidden />
             Updated for tax year {TAX_YEAR}
           </span>
 
@@ -89,6 +97,19 @@ export default function HomePage() {
             </strong>{" "}
             without knowing it.
           </p>
+
+          <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-brand-800">
+            {[
+              { icon: ShieldCheck, text: "Nothing you type leaves your browser" },
+              { icon: Zap, text: "No signup, no limits" },
+              { icon: FileText, text: "Invoice PDF included" },
+            ].map(({ icon: Icon, text }) => (
+              <li key={text} className="flex items-center gap-2">
+                <Icon className="size-4 shrink-0 text-brand-400" aria-hidden />
+                {text}
+              </li>
+            ))}
+          </ul>
         </Reveal>
       </section>
 
@@ -124,20 +145,21 @@ export default function HomePage() {
                 href={g.href}
                 className="group flex h-full flex-col rounded-2xl border border-brand-100 bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-[0_12px_32px_-12px_rgba(7,42,29,0.18)]"
               >
+                <span className="mb-4 flex size-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-900 group-hover:text-gold-400">
+                  <BookOpen className="size-5" aria-hidden />
+                </span>
                 <h3 className="text-lg font-semibold leading-snug tracking-tight text-balance group-hover:text-brand-600">
                   {g.title}
                 </h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-brand-800 text-pretty">
                   {g.blurb}
                 </p>
-                <span className="mt-4 text-sm font-medium text-brand-600">
+                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brand-600">
                   Read
-                  <span
+                  <ArrowRight
+                    className="size-4 transition-transform group-hover:translate-x-1"
                     aria-hidden
-                    className="ml-1 inline-block transition-transform group-hover:translate-x-1"
-                  >
-                    &rarr;
-                  </span>
+                  />
                 </span>
               </Link>
             </Reveal>

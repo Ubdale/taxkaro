@@ -1,7 +1,17 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { useMemo, useState } from "react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  Globe2,
+  Info,
+  Landmark,
+  TrendingDown,
+  TriangleAlert,
+  Wallet,
+} from "lucide-react";
+import { type ReactNode, useMemo, useState } from "react";
 import {
   BUSINESS_SLABS,
   IT_EXPORT,
@@ -14,6 +24,7 @@ import {
   formatPkr,
   itExportTax,
 } from "@/lib/tax-rates";
+import AnimatedRupees from "./ui/AnimatedRupees";
 import Segmented from "./ui/Segmented";
 
 type Period = "monthly" | "annual";
@@ -30,7 +41,7 @@ function groupDigits(raw: string) {
   return digits ? Number(digits).toLocaleString("en-PK") : "";
 }
 
-function Label({ children, hint }: { children: string; hint?: string }) {
+function Label({ children, hint }: { children: ReactNode; hint?: string }) {
   return (
     <div className="mb-2">
       <div className="text-sm font-semibold text-brand-950">{children}</div>
@@ -126,7 +137,10 @@ export default function Calculator() {
                 : "Pakistani clients means ordinary business slabs, which reach 45%."
             }
           >
-            Who pays you?
+            <span className="inline-flex items-center gap-1.5">
+              <Globe2 className="size-4 text-brand-400" aria-hidden />
+              Who pays you?
+            </span>
           </Label>
           <Segmented
             label="Client type"
@@ -195,19 +209,15 @@ export default function Calculator() {
               Tax on {formatPkr(annualIncome)} for {TAX_YEAR}
             </p>
 
-            <motion.p
-              key={taxDue}
-              initial={reduced ? false : { opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="tnum mt-2 text-4xl font-semibold tracking-tight text-balance sm:text-6xl"
-            >
-              {formatPkr(taxDue)}
-            </motion.p>
+            <AnimatedRupees
+              value={taxDue}
+              className="mt-2 block text-4xl font-semibold tracking-tight sm:text-6xl"
+            />
 
             <div className="mt-6 flex flex-wrap gap-x-8 gap-y-4 border-t border-brand-700 pt-5">
               <div>
-                <div className="text-xs font-medium uppercase tracking-wide text-brand-300">
+                <div className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-brand-300">
+                  <TrendingDown className="size-3.5" aria-hidden />
                   Effective rate
                 </div>
                 <div className="tnum mt-1 text-xl font-semibold text-gold-400">
@@ -215,7 +225,8 @@ export default function Calculator() {
                 </div>
               </div>
               <div>
-                <div className="text-xs font-medium uppercase tracking-wide text-brand-300">
+                <div className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-brand-300">
+                  <Wallet className="size-3.5" aria-hidden />
                   You keep
                 </div>
                 <div className="tnum mt-1 text-xl font-semibold">
@@ -223,7 +234,8 @@ export default function Calculator() {
                 </div>
               </div>
               <div>
-                <div className="text-xs font-medium uppercase tracking-wide text-brand-300">
+                <div className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-brand-300">
+                  <Landmark className="size-3.5" aria-hidden />
                   Monthly
                 </div>
                 <div className="tnum mt-1 text-xl font-semibold">
@@ -241,7 +253,8 @@ export default function Calculator() {
             className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border-2 border-gold-400 bg-gold-300/20 p-5"
           >
             <div className="flex-1">
-              <p className="font-semibold text-brand-950 text-pretty">
+              <p className="flex items-center gap-2 font-semibold text-brand-950 text-pretty">
+                <BadgeCheck className="size-5 shrink-0 text-gold-600" aria-hidden />
                 Registering with PSEB would save you {formatPkr(psebSaving)} this
                 year.
               </p>
@@ -252,16 +265,21 @@ export default function Calculator() {
             </div>
             <a
               href="/guides/pseb-registration-for-freelancers"
-              className="inline-flex h-11 items-center rounded-xl bg-brand-900 px-5 text-sm font-semibold text-white transition-colors hover:bg-brand-800"
+              className="group inline-flex h-11 items-center gap-2 rounded-xl bg-brand-900 px-5 text-sm font-semibold text-white transition-colors hover:bg-brand-800"
             >
               How to register
+              <ArrowRight
+                className="size-4 transition-transform group-hover:translate-x-0.5"
+                aria-hidden
+              />
             </a>
           </motion.div>
         ) : null}
 
         {/* Working */}
         <section className="overflow-hidden rounded-2xl border border-brand-100 bg-white">
-          <h2 className="border-b border-brand-100 px-6 py-4 text-sm font-semibold">
+          <h2 className="flex items-center gap-2 border-b border-brand-100 px-6 py-4 text-sm font-semibold">
+            <Info className="size-4 text-brand-400" aria-hidden />
             How this was worked out
           </h2>
 
@@ -328,6 +346,10 @@ export default function Calculator() {
 
         {nearCliff ? (
           <div className="rounded-2xl border-2 border-gold-500 bg-gold-300/20 p-5 text-sm leading-relaxed text-brand-900 text-pretty">
+            <TriangleAlert
+              className="mr-1.5 inline size-4 -translate-y-0.5 text-gold-600"
+              aria-hidden
+            />
             <strong>Mind the {formatPkr(SURCHARGE.threshold)} line.</strong> Above
             it a {SURCHARGE.rate * 100}% surcharge applies to your{" "}
             <em>entire</em> tax bill, not just the excess. Crossing it by one
@@ -337,7 +359,8 @@ export default function Calculator() {
 
         {/* Filer comparison */}
         <section className="overflow-hidden rounded-2xl border border-brand-100 bg-white">
-          <h2 className="border-b border-brand-100 px-6 py-4 text-sm font-semibold">
+          <h2 className="flex items-center gap-2 border-b border-brand-100 px-6 py-4 text-sm font-semibold">
+            <BadgeCheck className="size-4 text-brand-400" aria-hidden />
             What being a {filer ? "filer" : "non-filer"} costs you
           </h2>
           <div className="space-y-4 p-6">
