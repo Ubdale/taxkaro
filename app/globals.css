@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+/* A finance palette: deep green and off-white, the colours of a currency note
+   and a ledger. Deliberately not the SaaS purple/gradient default — this tool
+   asks people to trust a number about their money. */
+:root {
+  --paper: #f7f6f1;
+  --panel: #ffffff;
+  --ink: #14201a;
+  --muted: #5d6b63;
+  --line: #dcdfd6;
+  --line-strong: #bfc6ba;
+  --brand: #0f5132;
+  --brand-deep: #0a3a24;
+  --brand-soft: #e4ede7;
+  --accent: #8a6d1f;
+  --warn: #8a3d16;
+  --warn-soft: #f7e9e1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #101512;
+    --panel: #18201c;
+    --ink: #e8ede9;
+    --muted: #94a29a;
+    --line: #26302a;
+    --line-strong: #3b473f;
+    --brand: #6cbf95;
+    --brand-deep: #a7d9bf;
+    --brand-soft: #1a2a21;
+    --accent: #d9b75f;
+    --warn: #e0906a;
+    --warn-soft: #2b1d16;
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-panel: var(--panel);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-brand: var(--brand);
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-soft: var(--brand-soft);
+  --color-accent: var(--accent);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", Menlo,
+    Consolas, monospace;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--brand-soft);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Figures line up in columns when tabular — essential for money. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+.prose-doc {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  max-width: 42rem;
+}
+.prose-doc h2 {
+  font-size: 1.3rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  margin: 2.75rem 0 0.75rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 2px solid var(--brand-soft);
+}
+.prose-doc h3 {
+  font-size: 1.0625rem;
+  font-weight: 650;
+  margin: 1.85rem 0 0.5rem;
+}
+.prose-doc p {
+  margin: 0.9rem 0;
+}
+.prose-doc ul,
+.prose-doc ol {
+  margin: 0.9rem 0 0.9rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.prose-doc ul {
+  list-style: disc;
+}
+.prose-doc ol {
+  list-style: decimal;
+}
+.prose-doc li::marker {
+  color: var(--brand);
+}
+.prose-doc a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 500;
+}
+.prose-doc strong {
+  font-weight: 650;
+}
+.prose-doc code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--brand-soft);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+.prose-doc table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+  font-size: 0.9375rem;
+}
+.prose-doc th,
+.prose-doc td {
+  border: 1px solid var(--line);
+  padding: 0.5rem 0.7rem;
+  text-align: left;
+}
+.prose-doc th {
+  background: var(--brand-soft);
+  font-weight: 650;
+}
+.prose-doc td:last-child,
+.prose-doc th:last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
