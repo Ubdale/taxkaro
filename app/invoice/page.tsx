@@ -5,7 +5,7 @@ import { jsonLd, webApplicationSchema } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "Free Freelance Invoice Generator (Pakistan, PKR)",
   description:
-    "Create a professional freelance invoice in PKR and download it as a PDF. Free, no signup, and nothing you type is uploaded — the PDF is built in your browser.",
+    "Edit a freelance invoice directly on the page and download it as a PDF in PKR. Free, no signup, and nothing you type is uploaded — the PDF is built in your browser.",
   alternates: { canonical: "/invoice" },
 };
 
@@ -29,9 +29,10 @@ export default function InvoicePage() {
           Freelance invoice generator
         </h1>
         <p className="mt-5 text-lg leading-relaxed text-brand-800 text-pretty">
-          Fill in the details, watch the preview update, and download a clean PDF
-          in rupees. No account, no watermark, and nothing you type leaves your
-          browser.
+          Type straight onto the invoice — every field on the page is editable,
+          so there is no form to fill and no preview to keep in sync. Download it
+          as a PDF in rupees. No account, no watermark, and nothing you type
+          leaves your browser.
         </p>
         </div>
       </section>

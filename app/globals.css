@@ -265,18 +265,23 @@ body {
      page — the same trap that put a horizontal scrollbar on FakeData. */
   position: relative;
   display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
+  align-items: baseline;
+  gap: 0.15rem;
+  border-radius: 6px 6px 0 0;
   border-bottom: 2px dashed var(--color-brand-300);
-  color: var(--color-brand-600);
+  color: var(--color-brand-700);
   font-weight: 600;
-  transition: border-color 120ms ease, background-color 120ms ease;
+  text-align: left;
+  transition:
+    border-color 140ms ease,
+    background-color 140ms ease;
 }
 .slot:hover {
   border-bottom-color: var(--color-brand-500);
   background-color: var(--color-brand-50);
 }
-.slot:focus-within {
+.slot:focus-within,
+.slot[aria-expanded="true"] {
   border-bottom-style: solid;
   border-bottom-color: var(--color-brand-500);
   background-color: var(--color-brand-50);

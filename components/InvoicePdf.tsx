@@ -5,7 +5,7 @@ import {
   Text,
   View,
 } from "@react-pdf/renderer";
-import type { InvoiceData } from "./InvoiceGenerator";
+import type { InvoiceData } from "@/lib/invoice";
 
 /**
  * Rendered only inside a dynamic import from InvoiceGenerator, so the PDF
