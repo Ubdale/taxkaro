@@ -31,7 +31,7 @@ function SlabTable({
 }) {
   return (
     <table>
-      <caption className="mb-2 text-left text-sm text-muted">{caption}</caption>
+      <caption className="mb-2 text-left text-sm text-brand-700">{caption}</caption>
       <thead>
         <tr>
           <th>Annual taxable income</th>

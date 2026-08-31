@@ -32,24 +32,26 @@ const GUIDES = [
 
 export default function GuidesIndex() {
   return (
-    <div className="max-w-2xl">
-      <h1 className="text-3xl font-bold tracking-tight">Guides</h1>
-      <p className="mt-3 leading-relaxed text-muted">
+    <div className="mx-auto max-w-6xl px-6 py-12 sm:py-16">
+      <div className="max-w-2xl">
+      <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-6xl">Guides</h1>
+      <p className="mt-4 text-lg leading-relaxed text-brand-800 text-pretty">
         Plain-language writing on freelancer tax in Pakistan — what the rules
         are, what they cost you, and what to actually do about them.
       </p>
-      <ul className="mt-8 border-t border-line">
+      <ul className="mt-10">
         {GUIDES.map((g) => (
-          <li key={g.href} className="border-b border-line">
-            <Link href={g.href} className="group block py-5">
-              <h2 className="font-semibold leading-snug group-hover:text-brand">
+          <li key={g.href} className="border-t border-brand-100">
+            <Link href={g.href} className="group block py-6">
+              <h2 className="text-lg font-semibold leading-snug tracking-tight text-balance group-hover:text-brand-600">
                 {g.title}
               </h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{g.blurb}</p>
+              <p className="mt-2 leading-relaxed text-brand-800 text-pretty">{g.blurb}</p>
             </Link>
           </li>
         ))}
-      </ul>
+        </ul>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Calculator from "@/components/Calculator";
+import Reveal from "@/components/ui/Reveal";
 import { faqSchema, jsonLd, webApplicationSchema } from "@/lib/schema";
 import { IT_EXPORT, TAX_YEAR } from "@/lib/tax-rates";
 
@@ -36,10 +37,10 @@ const FAQS = [
 
 const GUIDES = [
   {
-    href: "/guides/how-to-become-a-filer-in-pakistan",
-    title: "How to become a filer in Pakistan",
+    href: "/guides/fbr-tax-slabs-freelancers",
+    title: `FBR tax slabs for freelancers, ${TAX_YEAR}`,
     blurb:
-      "NTN registration on IRIS, filing your first return, and how long it takes to appear on the Active Taxpayers List.",
+      "The non-salaried table freelancers are actually taxed on, and why it differs from the salaried one everybody quotes.",
   },
   {
     href: "/guides/pseb-registration-for-freelancers",
@@ -48,10 +49,10 @@ const GUIDES = [
       "What it costs, what it requires, and the income level at which the 0.25% rate starts paying for itself.",
   },
   {
-    href: "/guides/fbr-tax-slabs-freelancers",
-    title: `FBR tax slabs for freelancers, ${TAX_YEAR}`,
+    href: "/guides/how-to-become-a-filer-in-pakistan",
+    title: "How to become a filer in Pakistan",
     blurb:
-      "The non-salaried slab table freelancers are actually taxed on, and why it differs from the salaried one everybody quotes.",
+      "NTN registration on IRIS, filing your first return, and how long it takes to reach the Active Taxpayers List.",
   },
 ];
 
@@ -67,64 +68,120 @@ export default function HomePage() {
         dangerouslySetInnerHTML={jsonLd(faqSchema(FAQS))}
       />
 
-      <div className="mb-8 max-w-3xl">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          Freelancer tax calculator for Pakistan
-        </h1>
-        <p className="mt-3 text-base leading-relaxed text-muted">
-          Work out what you actually owe FBR on your freelance income for{" "}
-          {TAX_YEAR} — including the{" "}
-          <strong className="text-brand">
-            {IT_EXPORT.pseb * 100}% PSEB IT-export rate
-          </strong>{" "}
-          most calculators leave out. Free, no signup, and nothing you type
-          leaves your browser.
-        </p>
-      </div>
+      {/* ------------------------------ Hero ------------------------------ */}
+      <section className="mx-auto max-w-6xl px-6 pb-10 pt-12 sm:pt-16">
+        <Reveal className="max-w-3xl">
+          <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
+            <span className="h-1.5 w-1.5 rounded-full bg-gold-500" />
+            Updated for tax year {TAX_YEAR}
+          </span>
 
-      <Calculator />
+          <h1 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-6xl">
+            Know exactly what you owe FBR.
+          </h1>
 
-      <section className="mt-14" aria-labelledby="guides-heading">
-        <h2 id="guides-heading" className="mb-4 text-xl font-bold tracking-tight">
-          Guides
-        </h2>
-        <div className="grid gap-3 sm:grid-cols-3">
-          {GUIDES.map((g) => (
-            <Link
-              key={g.href}
-              href={g.href}
-              className="group rounded border border-line bg-panel p-4 transition-colors hover:border-brand"
-            >
-              <h3 className="font-semibold leading-snug group-hover:text-brand">
-                {g.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{g.blurb}</p>
-            </Link>
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-brand-800 text-pretty">
+            Most Pakistani tax calculators show you the{" "}
+            <em>salaried</em> slabs. You are not salaried — and if you bill
+            foreign clients, you may be paying{" "}
+            <strong className="text-brand-950">
+              {IT_EXPORT.pseb * 100}% instead of 45%
+            </strong>{" "}
+            without knowing it.
+          </p>
+        </Reveal>
+      </section>
+
+      <div className="note-rule mx-auto max-w-6xl" />
+
+      {/* --------------------------- Calculator --------------------------- */}
+      <section className="mx-auto max-w-6xl px-6 py-10">
+        <Calculator />
+      </section>
+
+      {/* ----------------------------- Guides ----------------------------- */}
+      <section
+        className="mx-auto max-w-6xl px-6 py-20 sm:py-28"
+        aria-labelledby="guides-heading"
+      >
+        <Reveal>
+          <h2
+            id="guides-heading"
+            className="text-3xl font-semibold tracking-tight text-balance"
+          >
+            The bits nobody explains properly
+          </h2>
+          <p className="mt-3 max-w-2xl text-brand-800 text-pretty">
+            Plain-language writing on what the rules actually are, what they cost
+            you, and what to do about them.
+          </p>
+        </Reveal>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-3">
+          {GUIDES.map((g, i) => (
+            <Reveal key={g.href} delay={i * 0.08}>
+              <Link
+                href={g.href}
+                className="group flex h-full flex-col rounded-2xl border border-brand-100 bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-[0_12px_32px_-12px_rgba(7,42,29,0.18)]"
+              >
+                <h3 className="text-lg font-semibold leading-snug tracking-tight text-balance group-hover:text-brand-600">
+                  {g.title}
+                </h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-brand-800 text-pretty">
+                  {g.blurb}
+                </p>
+                <span className="mt-4 text-sm font-medium text-brand-600">
+                  Read
+                  <span
+                    aria-hidden
+                    className="ml-1 inline-block transition-transform group-hover:translate-x-1"
+                  >
+                    &rarr;
+                  </span>
+                </span>
+              </Link>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="mt-14 max-w-3xl" aria-labelledby="faq-heading">
-        <h2 id="faq-heading" className="mb-4 text-xl font-bold tracking-tight">
-          Frequently asked questions
-        </h2>
-        <dl className="border-t border-line">
-          {FAQS.map((f) => (
-            <div key={f.q} className="border-b border-line py-4">
-              <dt className="font-semibold">{f.q}</dt>
-              <dd className="mt-2 text-sm leading-relaxed text-muted">{f.a}</dd>
-            </div>
+      {/* ------------------------------ FAQ ------------------------------ */}
+      <section
+        className="mx-auto max-w-6xl px-6 pb-20 sm:pb-28"
+        aria-labelledby="faq-heading"
+      >
+        <Reveal>
+          <h2
+            id="faq-heading"
+            className="text-3xl font-semibold tracking-tight text-balance"
+          >
+            Questions freelancers actually ask
+          </h2>
+        </Reveal>
+
+        <dl className="mt-10 max-w-3xl">
+          {FAQS.map((f, i) => (
+            <Reveal key={f.q} delay={Math.min(i, 5) * 0.08}>
+              <div className="border-t border-brand-100 py-6">
+                <dt className="text-lg font-semibold tracking-tight text-balance">
+                  {f.q}
+                </dt>
+                <dd className="mt-2 leading-relaxed text-brand-800 text-pretty">
+                  {f.a}
+                </dd>
+              </div>
+            </Reveal>
           ))}
         </dl>
-      </section>
 
-      {/* AdSense unit goes here */}
-      <div
-        data-ad-placement="home-below-faq"
-        className="mt-10 flex min-h-[90px] items-center justify-center rounded border border-dashed border-line text-xs uppercase tracking-widest text-muted"
-      >
-        Advertisement
-      </div>
+        {/* AdSense unit goes here */}
+        <div
+          data-ad-placement="home-below-faq"
+          className="mt-12 flex min-h-[90px] items-center justify-center rounded-2xl border border-dashed border-brand-200 text-xs uppercase tracking-widest text-brand-700/70"
+        >
+          Advertisement
+        </div>
+      </section>
     </>
   );
 }

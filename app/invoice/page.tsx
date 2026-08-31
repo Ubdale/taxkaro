@@ -23,18 +23,24 @@ export default function InvoicePage() {
         })}
       />
 
-      <div className="mb-8 max-w-3xl">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+      <section className="mx-auto max-w-6xl px-6 pb-8 pt-12 sm:pt-16">
+        <div className="max-w-3xl">
+        <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-6xl">
           Freelance invoice generator
         </h1>
-        <p className="mt-3 text-base leading-relaxed text-muted">
+        <p className="mt-5 text-lg leading-relaxed text-brand-800 text-pretty">
           Fill in the details, watch the preview update, and download a clean PDF
           in rupees. No account, no watermark, and nothing you type leaves your
           browser.
         </p>
-      </div>
+        </div>
+      </section>
 
-      <InvoiceGenerator />
+      <div className="note-rule mx-auto max-w-6xl" />
+
+      <section className="mx-auto max-w-6xl px-6 py-10">
+        <InvoiceGenerator />
+      </section>
     </>
   );
 }

@@ -65,7 +65,7 @@ function Input({
 }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted">
+      <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-brand-700">
         {label}
       </span>
       <input
@@ -73,7 +73,7 @@ function Input({
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded border border-line bg-panel px-3 py-2 text-sm outline-none focus:border-brand"
+        className="h-11 w-full rounded-xl border-2 border-brand-100 bg-paper px-3 text-sm outline-none transition-colors focus:border-brand-400"
       />
     </label>
   );
@@ -94,7 +94,7 @@ function Textarea({
 }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted">
+      <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-brand-700">
         {label}
       </span>
       <textarea
@@ -102,7 +102,7 @@ function Textarea({
         rows={rows}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded border border-line bg-panel px-3 py-2 text-sm outline-none focus:border-brand"
+        className="h-11 w-full rounded-xl border-2 border-brand-100 bg-paper px-3 text-sm outline-none transition-colors focus:border-brand-400"
       />
     </label>
   );
@@ -172,8 +172,8 @@ export default function InvoiceGenerator() {
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       <div className="space-y-5">
-        <section className="space-y-3 rounded border border-line bg-panel p-5">
-          <h2 className="text-sm font-bold">Invoice details</h2>
+        <section className="space-y-4 rounded-2xl border border-brand-100 bg-white p-6">
+          <h2 className="text-sm font-semibold">Invoice details</h2>
           <div className="grid gap-3 sm:grid-cols-3">
             <Input
               label="Invoice no."
@@ -195,8 +195,8 @@ export default function InvoiceGenerator() {
           </div>
         </section>
 
-        <section className="space-y-3 rounded border border-line bg-panel p-5">
-          <h2 className="text-sm font-bold">From (you)</h2>
+        <section className="space-y-4 rounded-2xl border border-brand-100 bg-white p-6">
+          <h2 className="text-sm font-semibold">From (you)</h2>
           <Input
             label="Your name or business"
             value={data.fromName}
@@ -217,8 +217,8 @@ export default function InvoiceGenerator() {
           />
         </section>
 
-        <section className="space-y-3 rounded border border-line bg-panel p-5">
-          <h2 className="text-sm font-bold">Bill to (client)</h2>
+        <section className="space-y-4 rounded-2xl border border-brand-100 bg-white p-6">
+          <h2 className="text-sm font-semibold">Bill to (client)</h2>
           <Input
             label="Client name"
             value={data.toName}
@@ -232,13 +232,13 @@ export default function InvoiceGenerator() {
           />
         </section>
 
-        <section className="space-y-3 rounded border border-line bg-panel p-5">
+        <section className="space-y-4 rounded-2xl border border-brand-100 bg-white p-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-bold">Line items</h2>
+            <h2 className="text-sm font-semibold">Line items</h2>
             <button
               type="button"
               onClick={() => setData((d) => ({ ...d, items: [...d.items, newItem()] }))}
-              className="rounded border border-brand px-2.5 py-1 text-xs font-semibold text-brand hover:bg-brand-soft"
+              className="inline-flex h-11 items-center rounded-xl border-2 border-brand-200 px-4 text-sm font-semibold text-brand-600 transition-colors hover:border-brand-400 hover:bg-brand-50"
             >
               + Add item
             </button>
@@ -276,7 +276,7 @@ export default function InvoiceGenerator() {
                     items: d.items.filter((it) => it.id !== item.id),
                   }))
                 }
-                className="mb-0.5 rounded border border-line px-2 py-2 text-xs text-muted hover:border-warn hover:text-warn disabled:cursor-not-allowed disabled:opacity-30"
+                className="mb-0.5 h-11 w-11 shrink-0 rounded-xl border-2 border-brand-100 text-brand-700 transition-colors hover:border-gold-500 hover:text-gold-600 disabled:cursor-not-allowed disabled:opacity-30"
               >
                 &times;
               </button>
@@ -284,7 +284,7 @@ export default function InvoiceGenerator() {
           ))}
         </section>
 
-        <section className="rounded border border-line bg-panel p-5">
+        <section className="rounded-2xl border border-brand-100 bg-white p-6">
           <Textarea
             label="Notes (payment terms, bank details)"
             value={data.notes}
@@ -296,15 +296,15 @@ export default function InvoiceGenerator() {
 
       {/* Live preview */}
       <div className="space-y-4 lg:sticky lg:top-6 lg:self-start">
-        <div className="rounded border border-line bg-panel p-6 text-sm">
-          <div className="flex items-start justify-between gap-4 border-b border-line pb-4">
+        <div className="rounded-2xl border border-brand-100 bg-white p-6 text-sm shadow-[0_12px_32px_-12px_rgba(7,42,29,0.12)]">
+          <div className="flex items-start justify-between gap-4 border-b border-brand-100 pb-4">
             <div>
-              <div className="text-xl font-bold text-brand">INVOICE</div>
-              <div className="tnum mt-0.5 text-xs text-muted">
+              <div className="text-2xl font-semibold tracking-tight text-brand-800">INVOICE</div>
+              <div className="tnum mt-0.5 text-xs text-brand-700">
                 {data.invoiceNumber || "—"}
               </div>
             </div>
-            <div className="tnum text-right text-xs text-muted">
+            <div className="tnum text-right text-xs text-brand-700">
               <div>Issued: {data.issueDate || "—"}</div>
               {data.dueDate ? <div>Due: {data.dueDate}</div> : null}
             </div>
@@ -312,23 +312,23 @@ export default function InvoiceGenerator() {
 
           <div className="grid gap-4 py-4 sm:grid-cols-2">
             <div>
-              <div className="text-xs font-semibold uppercase tracking-wide text-muted">
+              <div className="text-xs font-semibold uppercase tracking-wide text-brand-700">
                 From
               </div>
               <div className="mt-1 font-semibold">{data.fromName || "Your name"}</div>
               {data.fromNtn ? (
-                <div className="tnum text-xs text-muted">NTN: {data.fromNtn}</div>
+                <div className="tnum text-xs text-brand-700">NTN: {data.fromNtn}</div>
               ) : null}
-              <div className="whitespace-pre-line text-xs text-muted">
+              <div className="whitespace-pre-line text-xs text-brand-700">
                 {data.fromDetails}
               </div>
             </div>
             <div>
-              <div className="text-xs font-semibold uppercase tracking-wide text-muted">
+              <div className="text-xs font-semibold uppercase tracking-wide text-brand-700">
                 Bill to
               </div>
               <div className="mt-1 font-semibold">{data.toName || "Client name"}</div>
-              <div className="whitespace-pre-line text-xs text-muted">
+              <div className="whitespace-pre-line text-xs text-brand-700">
                 {data.toDetails}
               </div>
             </div>
@@ -336,7 +336,7 @@ export default function InvoiceGenerator() {
 
           <table className="w-full border-collapse">
             <thead>
-              <tr className="border-y border-line text-left text-xs uppercase tracking-wide text-muted">
+              <tr className="border-y border-brand-100 text-left text-xs uppercase tracking-wide text-brand-700">
                 <th className="py-2 font-medium">Description</th>
                 <th className="py-2 text-right font-medium">Qty</th>
                 <th className="py-2 text-right font-medium">Rate</th>
@@ -345,7 +345,7 @@ export default function InvoiceGenerator() {
             </thead>
             <tbody className="tnum">
               {data.items.map((it) => (
-                <tr key={it.id} className="border-b border-line">
+                <tr key={it.id} className="border-b border-brand-100">
                   <td className="py-2 pr-2">{it.description || "—"}</td>
                   <td className="py-2 text-right">{it.quantity || "0"}</td>
                   <td className="py-2 text-right">{num(it.rate).toLocaleString("en-PK")}</td>
@@ -357,10 +357,10 @@ export default function InvoiceGenerator() {
             </tbody>
             <tfoot>
               <tr>
-                <td colSpan={3} className="py-3 text-right font-bold">
+                <td colSpan={3} className="py-3 text-right font-semibold">
                   Total
                 </td>
-                <td className="tnum py-3 text-right text-lg font-bold text-brand">
+                <td className="tnum py-3 text-right text-xl font-semibold text-brand-600">
                   {formatPkr(total)}
                 </td>
               </tr>
@@ -368,7 +368,7 @@ export default function InvoiceGenerator() {
           </table>
 
           {data.notes ? (
-            <p className="whitespace-pre-line border-t border-line pt-3 text-xs text-muted">
+            <p className="whitespace-pre-line border-t border-brand-100 pt-3 text-xs text-brand-700">
               {data.notes}
             </p>
           ) : null}
@@ -378,18 +378,18 @@ export default function InvoiceGenerator() {
           type="button"
           onClick={downloadPdf}
           disabled={busy}
-          className="w-full rounded bg-brand px-4 py-3 text-sm font-semibold text-white hover:bg-brand-deep disabled:opacity-60"
+          className="h-14 w-full rounded-xl bg-brand-900 text-base font-semibold text-white transition-colors hover:bg-brand-800 disabled:opacity-60"
         >
           {busy ? "Generating…" : "Download PDF"}
         </button>
 
         {error ? (
-          <p className="rounded border border-warn bg-warn-soft px-3 py-2 text-xs text-warn">
+          <p className="rounded-xl border-2 border-gold-500 bg-gold-300/20 px-4 py-3 text-xs text-brand-900">
             {error}
           </p>
         ) : null}
 
-        <p className="text-xs leading-relaxed text-muted">
+        <p className="text-xs leading-relaxed text-brand-700">
           The PDF is built in your browser and downloaded directly. Nothing you
           type here — your name, your client, your rates — is uploaded anywhere.
         </p>
