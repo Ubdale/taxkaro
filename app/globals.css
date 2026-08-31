@@ -173,3 +173,111 @@ body {
 .prose-doc caption {
   caption-side: top;
 }
+
+
+/* ===========================================================================
+   The receipt
+   The result is presented as a printed tax slip rather than a dashboard card:
+   scalloped edges, a ledger with dotted leaders, and a rubber stamp. Built
+   from gradients so there is no image to load and it recolours with the theme.
+   =========================================================================== */
+.receipt {
+  position: relative;
+  background: #fffdf8;
+  box-shadow:
+    0 1px 2px rgba(7, 42, 29, 0.08),
+    0 18px 40px -18px rgba(7, 42, 29, 0.28);
+}
+
+/* Torn top and bottom edges, punched out in the page colour. */
+.receipt::before,
+.receipt::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background-image: radial-gradient(
+    circle at 8px 6px,
+    var(--color-paper) 6px,
+    transparent 6.5px
+  );
+  background-size: 16px 12px;
+  background-repeat: repeat-x;
+  pointer-events: none;
+}
+.receipt::before {
+  top: -6px;
+}
+.receipt::after {
+  bottom: -6px;
+}
+
+/* Dotted leader between a ledger label and its figure. */
+.leader {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.leader > span:first-child {
+  flex: none;
+}
+.leader::after {
+  content: "";
+  flex: 1;
+  height: 0;
+  margin-bottom: 0.28em;
+  border-bottom: 1px dotted var(--color-brand-200);
+}
+.leader > span:last-child {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Rubber stamp for the effective rate. */
+.stamp {
+  transform: rotate(-11deg);
+  border: 2.5px solid currentColor;
+  border-radius: 9999px;
+  opacity: 0.92;
+}
+
+/* ===========================================================================
+   The sentence
+   Inputs live inline inside a plain-English sentence instead of a form.
+   =========================================================================== */
+.sentence {
+  font-size: 1.5rem;
+  line-height: 1.75;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+@media (min-width: 640px) {
+  .sentence {
+    font-size: 1.875rem;
+    line-height: 1.7;
+  }
+}
+
+.slot {
+  /* Relative so the visually-hidden label inside (position:absolute) is
+     contained here rather than anchoring to the document and stretching the
+     page — the same trap that put a horizontal scrollbar on FakeData. */
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-bottom: 2px dashed var(--color-brand-300);
+  color: var(--color-brand-600);
+  font-weight: 600;
+  transition: border-color 120ms ease, background-color 120ms ease;
+}
+.slot:hover {
+  border-bottom-color: var(--color-brand-500);
+  background-color: var(--color-brand-50);
+}
+.slot:focus-within {
+  border-bottom-style: solid;
+  border-bottom-color: var(--color-brand-500);
+  background-color: var(--color-brand-50);
+}

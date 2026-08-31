@@ -3,10 +3,7 @@ import Link from "next/link";
 import {
   ArrowRight,
   BookOpen,
-  FileText,
-  ShieldCheck,
   Sparkles,
-  Zap,
 } from "lucide-react";
 import Calculator from "@/components/Calculator";
 import Reveal from "@/components/ui/Reveal";
@@ -84,32 +81,18 @@ export default function HomePage() {
             Updated for tax year {TAX_YEAR}
           </span>
 
-          <h1 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-6xl">
+          <h1 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-5xl">
             Know exactly what you owe FBR.
           </h1>
 
-          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-brand-800 text-pretty">
-            Most Pakistani tax calculators show you the{" "}
-            <em>salaried</em> slabs. You are not salaried — and if you bill
-            foreign clients, you may be paying{" "}
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-brand-800 text-pretty">
+            Most Pakistani calculators show the <em>salaried</em> slabs. You are
+            not salaried — and if you bill foreign clients you may be paying{" "}
             <strong className="text-brand-950">
               {IT_EXPORT.pseb * 100}% instead of 45%
             </strong>{" "}
-            without knowing it.
+            without knowing it. Fill in the sentence below.
           </p>
-
-          <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-brand-800">
-            {[
-              { icon: ShieldCheck, text: "Nothing you type leaves your browser" },
-              { icon: Zap, text: "No signup, no limits" },
-              { icon: FileText, text: "Invoice PDF included" },
-            ].map(({ icon: Icon, text }) => (
-              <li key={text} className="flex items-center gap-2">
-                <Icon className="size-4 shrink-0 text-brand-400" aria-hidden />
-                {text}
-              </li>
-            ))}
-          </ul>
         </Reveal>
       </section>
 
