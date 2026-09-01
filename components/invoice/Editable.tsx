@@ -1,7 +1,8 @@
 "use client";
 
-import { useId, useRef } from "react";
+import { useId, useRef, useState } from "react";
 import Icon from "@/components/ui/Icon";
+import DatePicker from "./DatePicker";
 
 /**
  * A field that reads as document text until you touch it.
@@ -96,25 +97,11 @@ export function EditableDate({
 }) {
   const id = useId();
   const ref = useRef<HTMLInputElement>(null);
+  const [open, setOpen] = useState(false);
 
-  // The native picker indicator is a browser-drawn glyph that ignores the
-  // page's colour and weight entirely. It is hidden in globals.css and replaced
-  // with the Material calendar, which opens the same platform picker through
-  // showPicker() — so the control still behaves exactly like a date input.
-  const openPicker = () => {
-    const el = ref.current;
-    if (!el) return;
-    if (typeof el.showPicker === "function") {
-      try {
-        el.showPicker();
-        return;
-      } catch {
-        // Safari and some embedded views throw here; focusing is the fallback.
-      }
-    }
-    el.focus();
-  };
-
+  // The field stays a real <input type="date"> so the date can still be typed
+  // and autofilled. Only the picker is replaced: the native one is drawn by the
+  // operating system and looks nothing like the page it interrupts.
   return (
     <span className="relative flex items-center">
       <label htmlFor={id} className="sr-only">
@@ -130,13 +117,23 @@ export function EditableDate({
       />
       <button
         type="button"
-        tabIndex={-1}
-        aria-hidden
-        onClick={openPicker}
-        className="absolute right-1 flex items-center text-brand-400 transition-colors hover:text-brand-600"
+        aria-label={`Choose ${label.toLowerCase()}`}
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        onClick={() => setOpen((o) => !o)}
+        className="absolute right-1 flex items-center rounded text-brand-400 transition-colors hover:text-brand-600"
       >
         <Icon name="calendar_month" className="size-4" />
       </button>
+
+      {open ? (
+        <DatePicker
+          value={value}
+          labelledBy={id}
+          onChange={onChange}
+          onClose={() => setOpen(false)}
+        />
+      ) : null}
     </span>
   );
 }
