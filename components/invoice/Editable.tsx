@@ -1,6 +1,7 @@
 "use client";
 
-import { useId } from "react";
+import { useId, useRef } from "react";
+import Icon from "@/components/ui/Icon";
 
 /**
  * A field that reads as document text until you touch it.
@@ -94,18 +95,48 @@ export function EditableDate({
   label: string;
 }) {
   const id = useId();
+  const ref = useRef<HTMLInputElement>(null);
+
+  // The native picker indicator is a browser-drawn glyph that ignores the
+  // page's colour and weight entirely. It is hidden in globals.css and replaced
+  // with the Material calendar, which opens the same platform picker through
+  // showPicker() — so the control still behaves exactly like a date input.
+  const openPicker = () => {
+    const el = ref.current;
+    if (!el) return;
+    if (typeof el.showPicker === "function") {
+      try {
+        el.showPicker();
+        return;
+      } catch {
+        // Safari and some embedded views throw here; focusing is the fallback.
+      }
+    }
+    el.focus();
+  };
+
   return (
-    <>
+    <span className="relative flex items-center">
       <label htmlFor={id} className="sr-only">
         {label}
       </label>
       <input
         id={id}
+        ref={ref}
         type="date"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`${base} tnum px-1 py-0.5 text-right`}
+        className={`${base} date-field tnum py-0.5 pl-1 pr-7 text-right`}
       />
-    </>
+      <button
+        type="button"
+        tabIndex={-1}
+        aria-hidden
+        onClick={openPicker}
+        className="absolute right-1 flex items-center text-brand-400 transition-colors hover:text-brand-600"
+      >
+        <Icon name="calendar_month" className="size-4" />
+      </button>
+    </span>
   );
 }

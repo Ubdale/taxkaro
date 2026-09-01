@@ -292,3 +292,16 @@ body {
   border-bottom-color: var(--color-brand-500);
   background-color: var(--color-brand-50);
 }
+
+
+/* The browser's own date-picker glyph is drawn by the UA and ignores the page's
+   colour and weight. Hidden here so the Material calendar in EditableDate can
+   stand in for it; the button still opens the real platform picker. */
+.date-field::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  width: 1.5rem;
+  height: 100%;
+  cursor: pointer;
+}
