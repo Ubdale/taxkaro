@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { Download, FileWarning, Plus, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import {
   type InvoiceData,
@@ -14,6 +13,7 @@ import {
 } from "@/lib/invoice";
 import { formatPkr } from "@/lib/tax-rates";
 import { EditableArea, EditableDate, EditableText } from "./invoice/Editable";
+import Icon from "./ui/Icon";
 
 /**
  * The invoice edits itself.
@@ -260,7 +260,7 @@ export default function InvoiceGenerator() {
                           }
                           className="rounded p-1 text-brand-300 opacity-0 transition-all hover:bg-gold-300/30 hover:text-gold-600 focus-visible:opacity-100 group-hover:opacity-100 disabled:pointer-events-none"
                         >
-                          <Trash2 className="size-3.5" aria-hidden />
+                          <Icon name="delete" className="size-4" />
                         </button>
                       </td>
                     </motion.tr>
@@ -275,7 +275,7 @@ export default function InvoiceGenerator() {
             onClick={() => setData((d) => ({ ...d, items: [...d.items, newItem()] }))}
             className="mt-3 inline-flex h-11 items-center gap-1.5 rounded-lg px-2 text-sm font-medium text-brand-600 transition-colors hover:bg-brand-50"
           >
-            <Plus className="size-4" aria-hidden />
+            <Icon name="add" className="size-4" />
             Add a line
           </button>
 
@@ -338,7 +338,7 @@ export default function InvoiceGenerator() {
             whileTap={reduced ? undefined : { scale: 0.97 }}
             className="inline-flex h-11 items-center gap-2 rounded-xl bg-brand-900 px-5 text-sm font-semibold text-white transition-colors hover:bg-brand-800 disabled:opacity-60"
           >
-            <Download className="size-4" aria-hidden />
+            <Icon name="download" className="size-4" />
             {busy ? "Generating…" : "Download PDF"}
           </motion.button>
         </div>
@@ -349,7 +349,7 @@ export default function InvoiceGenerator() {
           role="alert"
           className="mx-auto mt-4 flex max-w-md items-start gap-2 rounded-xl border-2 border-gold-500 bg-gold-300/20 px-4 py-3 text-sm text-brand-900"
         >
-          <FileWarning className="mt-0.5 size-4 shrink-0 text-gold-600" aria-hidden />
+          <Icon name="error" className="mt-0.5 size-4 text-gold-600" />
           {error}
         </p>
       ) : null}

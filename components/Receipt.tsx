@@ -32,20 +32,47 @@ export default function Receipt({
 }: Props) {
   const reduced = useReducedMotion();
 
+  // Rupee figures grow without bound; the slip does not. Step the headline
+  // down as the digit count climbs rather than letting it run off the card.
+  const digits = Math.abs(Math.round(taxDue)).toString().length;
+  const totalSize =
+    digits > 11
+      ? "text-xl sm:text-2xl"
+      : digits > 9
+        ? "text-2xl sm:text-3xl"
+        : digits > 7
+          ? "text-3xl sm:text-4xl"
+          : "text-4xl sm:text-5xl";
+
   return (
     <motion.div
       layout={!reduced}
       className="receipt rounded-sm px-6 py-8 sm:px-8"
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
-      {/* Slip header */}
-      <div className="border-b-2 border-dashed border-brand-200 pb-5 text-center">
+      {/* Slip header.
+          The stamp lives up here rather than beside the total: a rotated
+          element has a fat bounding box, and next to a ten-digit figure it
+          landed on top of the number. Here it has the header's own margin to
+          sit in and cannot collide with anything that grows. */}
+      <div className="relative border-b-2 border-dashed border-brand-200 pb-5 pr-16 text-center">
         <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-brand-600">
           Estimated tax
         </p>
         <p className="mt-1 font-mono text-[11px] uppercase tracking-widest text-brand-700/70">
           {FBR_TAX_YEAR_LABEL} &middot; {TAX_YEAR}
         </p>
+
+        <div className="stamp pointer-events-none absolute -top-1 right-0 flex size-[70px] flex-col items-center justify-center text-center text-gold-600">
+          <span className="tnum text-sm font-bold leading-none">
+            {(effectiveRate * 100).toFixed(2)}%
+          </span>
+          <span className="mt-1 font-mono text-[7px] uppercase leading-tight tracking-widest">
+            effective
+            <br />
+            rate
+          </span>
+        </div>
       </div>
 
       {/* Ledger */}
@@ -74,30 +101,17 @@ export default function Receipt({
         ) : null}
       </dl>
 
-      {/* Total */}
-      <div className="relative border-y-2 border-brand-900 py-5">
+      {/* Total. The figure steps down through the type scale as it grows, so a
+          360-billion income still fits inside the slip. */}
+      <div className="border-y-2 border-brand-900 py-5">
         <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand-700">
           Total payable
         </p>
         <AnimatedRupees
           value={taxDue}
           label="Total tax payable"
-          className="mt-1 block text-4xl font-semibold tracking-tight text-brand-950 sm:text-5xl"
+          className={`mt-1 block font-semibold tracking-tight text-brand-950 ${totalSize}`}
         />
-
-        {/* Rubber stamp */}
-        <div className="pointer-events-none absolute -top-2 right-0 sm:right-2">
-          <div className="stamp flex size-24 flex-col items-center justify-center text-center text-gold-600">
-            <span className="tnum text-lg font-bold leading-none">
-              {(effectiveRate * 100).toFixed(2)}%
-            </span>
-            <span className="mt-1 font-mono text-[8px] uppercase leading-tight tracking-widest">
-              effective
-              <br />
-              rate
-            </span>
-          </div>
-        </div>
       </div>
 
       {/* Footer */}

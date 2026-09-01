@@ -1,8 +1,8 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { Check } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
+import Icon from "./Icon";
 
 type Option<T extends string> = { value: T; label: string };
 
@@ -120,9 +120,9 @@ export default function SlotSelect<T extends string>({
           aria-hidden
           animate={reduced ? undefined : { rotate: open ? 180 : 0 }}
           transition={{ type: "spring", stiffness: 400, damping: 28 }}
-          className="ml-0.5 inline-block text-[0.6em] leading-none text-brand-400 group-hover:text-brand-600"
+          className="ml-0.5 inline-flex text-brand-400 group-hover:text-brand-600"
         >
-          ▾
+          <Icon name="keyboard_arrow_down" className="size-[0.7em]" />
         </motion.span>
       </button>
 
@@ -154,9 +154,9 @@ export default function SlotSelect<T extends string>({
                       : "text-brand-900 hover:bg-brand-50"
                   }`}
                 >
-                  <Check
-                    aria-hidden
-                    className={`size-3.5 shrink-0 ${
+                  <Icon
+                    name="check"
+                    className={`size-3.5 ${
                       selected
                         ? i === active
                           ? "text-gold-400"

@@ -34,9 +34,13 @@ export function SlotNumber({
         inputMode="numeric"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        // `ch` tracks digit width, so the field is exactly as wide as the
-        // number it holds and the sentence never jumps around.
-        style={{ width: `${Math.max(value.length, 3) + 0.5}ch` }}
+        // `ch` tracks digit width so the field is exactly as wide as the number
+        // it holds — but capped, because an eleven-digit income was stretching
+        // the sentence past the column and breaking the line badly. Past the cap
+        // the field scrolls internally instead of growing.
+        style={{
+          width: `${Math.min(Math.max(value.length, 3) + 0.5, 13)}ch`,
+        }}
         className="tnum bg-transparent text-center font-semibold text-brand-700 outline-none"
       />
     </span>

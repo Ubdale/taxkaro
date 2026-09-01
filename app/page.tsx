@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  ArrowRight,
-  BookOpen,
-  Sparkles,
-} from "lucide-react";
 import Calculator from "@/components/Calculator";
+import Icon from "@/components/ui/Icon";
 import Reveal from "@/components/ui/Reveal";
 import { faqSchema, jsonLd, webApplicationSchema } from "@/lib/schema";
 import { IT_EXPORT, TAX_YEAR } from "@/lib/tax-rates";
@@ -77,7 +73,7 @@ export default function HomePage() {
       <section className="mx-auto max-w-6xl px-6 pb-10 pt-12 sm:pt-16">
         <Reveal className="max-w-3xl">
           <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
-            <Sparkles className="size-3.5 text-gold-600" aria-hidden />
+            <Icon name="award_star" className="size-3.5 text-gold-600" />
             Updated for tax year {TAX_YEAR}
           </span>
 
@@ -129,7 +125,7 @@ export default function HomePage() {
                 className="group flex h-full flex-col rounded-2xl border border-brand-100 bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-[0_12px_32px_-12px_rgba(7,42,29,0.18)]"
               >
                 <span className="mb-4 flex size-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-900 group-hover:text-gold-400">
-                  <BookOpen className="size-5" aria-hidden />
+                  <Icon name="menu_book" className="size-5" />
                 </span>
                 <h3 className="text-lg font-semibold leading-snug tracking-tight text-balance group-hover:text-brand-600">
                   {g.title}
@@ -139,9 +135,9 @@ export default function HomePage() {
                 </p>
                 <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brand-600">
                   Read
-                  <ArrowRight
+                  <Icon
+                    name="arrow_forward"
                     className="size-4 transition-transform group-hover:translate-x-1"
-                    aria-hidden
                   />
                 </span>
               </Link>

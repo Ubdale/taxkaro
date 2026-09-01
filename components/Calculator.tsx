@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowRight, BadgeCheck, Info, TriangleAlert } from "lucide-react";
 import { useMemo, useState } from "react";
 import {
   BUSINESS_SLABS,
@@ -14,6 +13,7 @@ import {
   formatPkr,
   itExportTax,
 } from "@/lib/tax-rates";
+import Icon from "./ui/Icon";
 import Receipt from "./Receipt";
 import { SlotNumber, SlotSelect } from "./ui/Slot";
 
@@ -170,10 +170,7 @@ export default function Calculator() {
               className="rounded-2xl bg-brand-900 p-6 text-white"
             >
               <p className="flex items-start gap-2.5 text-lg font-semibold leading-snug text-balance">
-                <BadgeCheck
-                  className="mt-0.5 size-5 shrink-0 text-gold-400"
-                  aria-hidden
-                />
+                <Icon name="verified" className="mt-0.5 size-5 text-gold-400" />
                 Registering with PSEB would save you {formatPkr(psebSaving)} this
                 year.
               </p>
@@ -187,9 +184,9 @@ export default function Calculator() {
                 className="group mt-5 inline-flex h-11 items-center gap-2 rounded-xl bg-gold-500 px-5 text-sm font-semibold text-brand-950 transition-colors hover:bg-gold-400"
               >
                 How to register
-                <ArrowRight
+                <Icon
+                  name="arrow_forward"
                   className="size-4 transition-transform group-hover:translate-x-0.5"
-                  aria-hidden
                 />
               </a>
             </motion.div>
@@ -197,9 +194,9 @@ export default function Calculator() {
 
           {nearCliff ? (
             <div className="rounded-2xl border-2 border-gold-500 bg-gold-300/20 p-5 text-sm leading-relaxed text-brand-900 text-pretty">
-              <TriangleAlert
-                className="mr-1.5 inline size-4 -translate-y-0.5 text-gold-600"
-                aria-hidden
+              <Icon
+                name="warning"
+                className="mr-1.5 size-4 -translate-y-0.5 text-gold-600"
               />
               <strong>Mind the {formatPkr(SURCHARGE.threshold)} line.</strong>{" "}
               Above it a {SURCHARGE.rate * 100}% surcharge applies to your{" "}
@@ -210,7 +207,7 @@ export default function Calculator() {
 
           <section className="rounded-2xl border border-brand-100 bg-white p-6">
             <h2 className="flex items-center gap-2 text-sm font-semibold">
-              <Info className="size-4 text-brand-400" aria-hidden />
+              <Icon name="info" className="size-4 text-brand-400" />
               Why this number
             </h2>
             {isExport ? (
@@ -255,7 +252,7 @@ export default function Calculator() {
 
           <section className="rounded-2xl border border-brand-100 bg-white p-6">
             <h2 className="flex items-center gap-2 text-sm font-semibold">
-              <BadgeCheck className="size-4 text-brand-400" aria-hidden />
+              <Icon name="verified" className="size-4 text-brand-400" />
               What being {filer === "filer" ? "a filer" : "a non-filer"} costs you
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-brand-800 text-pretty">

@@ -230,8 +230,14 @@ body {
   border-bottom: 1px dotted var(--color-brand-200);
 }
 .leader > span:last-child {
-  flex: none;
+  flex: 0 1 auto;
+  min-width: 0;
+  text-align: right;
+  overflow-wrap: anywhere;
   font-variant-numeric: tabular-nums;
+}
+.leader > span:first-child {
+  min-width: 0;
 }
 
 /* Rubber stamp for the effective rate. */
